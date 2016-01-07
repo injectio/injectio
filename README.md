@@ -1,5 +1,7 @@
 # Inject.io
 
+[ ![Download](https://api.bintray.com/packages/injectio/injectio/io.inject/images/download.svg) ](https://bintray.com/injectio/injectio/io.inject/_latestVersion)
+
 Tiny and nice injections syntax sugar for Android. If
 you're using heavy injection frameworks just to inject
 views and resources try this.
@@ -11,6 +13,22 @@ views and resources try this.
 - Injects views and resources, that's it.
 
 ### How?
+
+```groovy
+
+repositories {
+  repositories {
+    maven {
+      url 'https://dl.bintray.com/injectio/injectio/'
+    }
+  }
+}
+
+dependencies {
+  compile 'inject:inject:1.0.4'
+}
+
+```
 
 ```java
 
