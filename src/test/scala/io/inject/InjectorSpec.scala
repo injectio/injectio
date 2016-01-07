@@ -15,7 +15,7 @@ class InjectorSpec extends FlatSpec with Matchers {
     activity.getViewOne.getId shouldBe 1
 
     activity.getViewTwo should not be null
-    activity.getViewTwo shouldBe 2
+    activity.getViewTwo.getId shouldBe 2
 
     activity.isBooleanRes shouldBe true
     activity.getStringArray should not be null

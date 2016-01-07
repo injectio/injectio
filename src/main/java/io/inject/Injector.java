@@ -64,12 +64,13 @@ public class Injector {
 
     Class<?> t = field.getType();
     Method getResources = getMethod(providerClazz, "getResources");
+    Object context = null;
 
     if (null == getResources) {
       Method getContext = getMethod(providerClazz, "getContext");
 
       if (null != getContext) {
-        Object context = getContext.invoke(provider);
+        context = getContext.invoke(provider);
         getResources = getMethod(context.getClass(), "getResources");
       }
     }
@@ -80,37 +81,37 @@ public class Injector {
 
       field.set(recipient, (null != result) ? result : "");
     } else if (null != getResources){
-      Object resources = getResources.invoke(provider);
+      Object resources = (null == context) ? getResources.invoke(provider) : getResources.invoke(context);
       Class<?> resourcesClazz = resources.getClass();
 
-      if (t.isAssignableFrom(String.class) && !t.isArray()) {
+      if (t.isAssignableFrom(String.class)) {
         Method getString = getMethod(providerClazz, "getString", Integer.TYPE);
-        Object result = invoke(getString, provider, idValue);
+        Object result = invoke(getString, resources, idValue);
 
         field.set(recipient, (null != result) ? result : "");
-      } else if (t.isAssignableFrom(String.class) && t.isArray()) {
+      } else if (t.isAssignableFrom(String[].class)) {
         Method getStringArray = getMethod(resourcesClazz, "getStringArray", Integer.TYPE);
-        Object result = invoke(getStringArray, provider, idValue);
+        Object result = invoke(getStringArray, resources, idValue);
 
         field.set(recipient, (null != result) ? result : new String[] { });
-      } else if (t.isAssignableFrom(int.class) && !t.isArray()) {
+      } else if (t.isAssignableFrom(int.class)) {
         Method getInteger = getMethod(resourcesClazz, "getInteger", Integer.TYPE);
-        Object result = invoke(getInteger, provider, idValue);
+        Object result = invoke(getInteger, resources, idValue);
 
         field.set(recipient, (null != result) ? result : 0);
-      } else if (t.isAssignableFrom(int.class) && t.isArray()) {
+      } else if (t.isAssignableFrom(int[].class)) {
         Method getIntArray = getMethod(resourcesClazz, "getIntArray", Integer.TYPE);
-        Object result = invoke(getIntArray, provider, idValue);
+        Object result = invoke(getIntArray, resources, idValue);
 
         field.set(recipient, (null != result) ? result : new int[] { });
       } else if (t.isAssignableFrom(boolean.class)) {
         Method getBoolean = getMethod(resourcesClazz, "getBoolean", Integer.TYPE);
-        Object result = invoke(getBoolean, provider, idValue);
+        Object result = invoke(getBoolean, resources, idValue);
 
         field.set(recipient, (null != result) ? result : false);
       } else if (t.isAssignableFrom(float.class)) {
         Method getDimension = getMethod(resourcesClazz, "getDimension", Integer.TYPE);
-        Object result = invoke(getDimension, provider, idValue);
+        Object result = invoke(getDimension, resources, idValue);
 
         field.set(recipient, (null != result) ? result : 0.0f);
       }
@@ -128,9 +129,9 @@ public class Injector {
   private static Object invoke(Method method, Object obj, Object... args)
       throws InvocationTargetException, IllegalAccessException {
     if (null != method) {
-      method.invoke(obj, args);
+      return method.invoke(obj, args);
+    } else {
+      return null;
     }
-
-    return null;
   }
 }
