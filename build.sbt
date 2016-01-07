@@ -1,6 +1,6 @@
 name := "inject"
 
-version := "1.03"
+version := "1.0.4"
 
 scalaVersion := "2.11.7"
 
@@ -8,7 +8,11 @@ scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature")
 
 javacOptions  ++= Seq("-target", "1.7", "-source", "1.7", "-Xlint:deprecation")
 
+autoScalaLibrary := false
+
 exportJars := true
+
+crossPaths := false
 
 sources in (Compile, doc) := Seq.empty
 
