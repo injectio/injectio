@@ -1,4 +1,4 @@
-name := "injectio"
+name := "inject"
 
 version := "1.03"
 
