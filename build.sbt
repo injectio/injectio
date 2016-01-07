@@ -15,3 +15,7 @@ resolvers += Resolver.sonatypeRepo("public")
 libraryDependencies ++= Seq(
   "org.scalatest" % "scalatest_2.11" % "2.2.6" % "test"
 )
+
+bintrayOrganization := Some("injectio")
+
+licenses += ("Apache License, Version 2.0", url("http://www.apache.org/licenses/LICENSE-2.0"))
