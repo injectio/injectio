@@ -1,6 +1,8 @@
 # Inject.io
 
 [ ![Download](https://api.bintray.com/packages/injectio/injectio/io.inject/images/download.svg) ](https://bintray.com/injectio/injectio/io.inject/_latestVersion)
+[![Bintray](https://img.shields.io/bintray/v/asciidoctor/maven/asciidoctorj.svg?label=v1.0.4)](https://bintray.com/injectio/injectio)
+[![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)]()
 
 Tiny and nice injections syntax sugar for Android. If
 you're using heavy injection frameworks just to inject
@@ -19,7 +21,7 @@ views and resources try this.
 repositories {
   repositories {
     maven {
-      url 'https://dl.bintray.com/injectio/injectio/'
+      jcenter()
     }
   }
 }
